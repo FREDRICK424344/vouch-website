@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vouch — Find verified local professionals</title>
+<script type="text/javascript">try{var t=localStorage.getItem("vouchTheme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="topbar">Verified professionals, secure messaging, jobs and hiring in one place</div>
+<div class="wrap">
+<header>
+<a class="logo" href="#home"><i></i>Vouch</a>
+<nav class="mainnav" aria-label="Main"><a href="#home">Find services</a><a href="#jobs">Jobs</a><a href="#posts">Showcase</a><a href="#pricing">Pricing</a></nav>
+<div class="hright"><a class="btn main hlist" href="#join">List your business</a>
+<details class="acctmenu" id="am"><summary class="btn ghost" id="acsum">Sign in</summary>
+<div class="menu"><a id="who" href="#profile" hidden></a><a id="msgb" href="#messages">Messages</a><a id="notb" href="#notifications" hidden>Alerts</a><button id="favb" type="button">♥ Saved (0)</button><a class="mobonly" href="#join">List your business</a><a id="acct" href="#account">Sign in</a></div></details></div>
+</header>
+
+<main id="home">
+<div class="hero">
+<h1>Find trusted professionals. Hire with confidence.</h1>
+<p>Every professional on Vouch has had their ID and work history verified, and every review comes from a real booking.</p>
+<div class="search" role="search">
+<label><small>Service</small>
+<select id="svc"><option value="">Any service</option><option>Plumber</option><option>Electrician</option><option>Cleaner</option><option>Tutor</option><option>Mechanic</option><option>Photographer</option><option>Real Estate</option><option>Law Firm</option><option>Lawyer</option><option>Dentist</option></select></label>
+<label><small>Where</small><input id="loc" placeholder="Your city or area" autocomplete="off"></label>
+<button class="btn main" id="go" type="button">Search</button>
+</div>
+<div class="chips" id="chips" aria-label="Filter by service"></div>
+<div class="stats" id="stats"></div>
+<div class="tiles">
+<a class="tile" href="#home" onclick="document.getElementById('list').scrollIntoView({behavior:'smooth'});return false"><b>Hire a professional</b><span>Plumbers, lawyers, dentists, agents and more</span></a>
+<a class="tile" href="#jobs"><b>Find a job</b><span>Browse roles from companies</span></a>
+<a class="tile" href="#workers"><b>Find workers</b><span>Search and match skilled people</span></a>
+<a class="tile" href="#messages"><b>Messages</b><span>Chat with clients and companies</span></a>
+<a class="tile" href="#posts"><b>Showcase</b><span>Photos and videos of real work</span></a>
+<a class="tile" href="#join"><b>List your business</b><span>Get found by new customers</span></a>
+</div>
+</div>
+
+<section class="block">
+<div class="bar"><h2 id="listtitle">Top-rated this week</h2><label style="font-size:14px;color:var(--muted)"><input type="checkbox" id="vonly"> Verified only</label> <label style="font-size:14px;color:var(--muted)">Sort by <select id="sort"><option value="rate">Top rated</option><option value="rev">Most reviewed</option></select></label></div>
+<div class="grid" id="list"></div>
+<p id="empty" hidden style="color:var(--muted)">No professionals match yet. Try another service or clear the filter.</p>
+</section>
+
+<section class="block">
+<h2>How Vouch works</h2>
+<div class="steps">
+<div><h3>Search</h3><p>Pick a service and your area to see verified professionals nearby.</p></div>
+<div><h3>Compare</h3><p>Read reviews from real customers and check prices before you reach out.</p></div>
+<div><h3>Book</h3><p>Send a quote request and get a reply directly from the professional.</p></div>
+</div>
+</section>
+
+<section class="block"><div class="cta" style="margin:0"><div><h2>Hiring, or looking for work?</h2><p>Companies post jobs, workers build profiles and apply. Big or small, everyone is welcome.</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn main" href="#jobs">Browse jobs</a><a class="btn main" href="#workers">Find workers</a></div></div></section>
+
+<section class="block"><h2>Questions people ask</h2>
+<details><summary>What does “verified” mean?</summary><p>The Verified badge appears only after our team checks a business’s ID and registration, plus the professional licence for lawyers, dentists and agents. Businesses pay a subscription that covers this review, and approval is never guaranteed. “Contact confirmed” means only that their phone number was confirmed.</p></details>
+<details><summary>Is it free to use?</summary><p>Searching, comparing and reading messages are free. Sending messages, job applications and quote requests needs a paid plan.</p></details>
+<details><summary>How do I list my business?</summary><p>Choose “List your business”, fill in your details and your profile goes live straight away. Verification follows.</p></details>
+<details><summary>How are reviews kept honest?</summary><p>Every review carries a name, and any that look fake or abusive are removed.</p></details>
+</section>
+
+<div class="cta">
+<div><h2>Do you offer a service?</h2><p>Get a free listing and start receiving requests from nearby customers.</p></div>
+<a class="btn main" href="#join">Create free listing</a>
+</div>
+</main>
+
+<main id="provider" hidden>
+<button class="back" type="button" onclick="location.hash='home'">← All professionals</button>
+<div class="pgrid">
+<div>
+<div class="phead"><div class="avatar" id="pav"></div>
+<div><h1 id="pname"></h1><div class="trade" id="ptrade" style="color:var(--muted)"></div>
+<div class="row" style="justify-content:flex-start;gap:12px"><span id="pvbw"></span><span><span class="stars">★★★★★</span> <b id="prate"></b> <span id="pcount" style="color:var(--muted)"></span></span></div></div></div>
+<div class="panel"><h2>About</h2><p id="pabout" style="margin:0"></p></div>
+<div class="panel" id="pprops" hidden><h2>Properties</h2><div class="grid" id="pplist"></div></div>
+<div class="panel"><h2>Services and prices</h2><div id="psvc"></div></div>
+<div class="panel"><h2>Recent reviews</h2><div id="prev"></div><p id="norev" hidden style="color:var(--muted);margin:0">No reviews yet. Be the first to leave one.</p></div>
+<div class="panel"><h2>Leave a review</h2>
+<form id="rf">
+<label>Your name<input required id="rn"></label>
+<label>Rating<select id="rr"><option value="5">5 stars</option><option value="4">4 stars</option><option value="3">3 stars</option><option value="2">2 stars</option><option value="1">1 star</option></select></label>
+<label>Comment<textarea required rows="3" id="rc"></textarea></label>
+<button class="btn main" type="submit">Post review</button>
+</form></div>
+</div>
+<aside class="panel quote">
+<h2>Request a quote</h2>
+<form id="qf">
+<label>Your name<input required id="qn"></label>
+<label>Service needed<select id="qs"></select></label>
+<label>Preferred date<input type="date" id="qd"></label>
+<label>Job details<textarea rows="3" id="qm" placeholder="Describe what you need done"></textarea></label>
+<button class="btn main" type="submit">Send request</button>
+</form>
+<div class="ok" id="qok" hidden>Request sent. They usually reply within a few hours.</div>
+<button class="btn main" id="pfol" type="button" style="width:100%;margin-top:10px">Follow</button>
+<button class="btn ghost" id="pmsg" type="button" style="width:100%;margin-top:10px">Message this professional</button>
+<button class="back" id="prep" type="button" style="margin-top:8px">Report this listing</button>
+</aside>
+</div>
+</main>
+
+<main id="jobs" hidden>
+<h1 style="font-size:clamp(30px,6vw,48px);margin:12px 0 8px">Jobs</h1>
+<div class="chips" style="margin:0 0 16px"><button class="chip" aria-pressed="true" type="button">Find a job</button><button class="chip" aria-pressed="false" type="button" onclick="location.hash='workers'">Find workers</button><button class="chip" aria-pressed="false" type="button" onclick="location.hash='applications'">Applications</button><a class="btn main" href="#postjob" style="padding:8px 16px">Post a job</a></div>
+<div class="search" style="grid-template-columns:1.5fr 1fr"><label><small>Search</small><input id="jq" placeholder="Job title, company or place" autocomplete="off"></label><label><small>Type</small><select id="jty"><option value="">Any type</option><option>Full-time</option><option>Part-time</option><option>Contract</option></select></label></div>
+<div class="grid" id="jlist" style="margin-top:18px"></div>
+<p id="jempty" hidden style="color:var(--muted)">No jobs match yet. Try different words.</p>
+</main>
+
+<main id="job" hidden>
+<button class="back" type="button" onclick="location.hash='jobs'">← All jobs</button>
+<div class="pgrid"><div>
+<div class="phead"><div class="avatar" id="jbav"></div><div><h1 id="jbtitle"></h1><div id="jbco" style="color:var(--muted)"></div></div></div>
+<div class="facts" id="jbfacts" style="margin:0 0 6px"></div>
+<div id="jbpay" style="font:800 24px 'Bricolage Grotesque',sans-serif;margin-bottom:16px"></div>
+<div class="panel"><h2>About the role</h2><p id="jbdesc" style="margin:0"></p></div>
+<div class="panel" id="jbrp"><h2>What you need</h2><ul id="jbreqs" style="margin:0;padding-left:20px"></ul></div>
+</div>
+<aside class="panel quote"><h2>Apply now</h2>
+<form id="af"><label>Your name<input required id="an"></label><label>Phone number<input required type="tel" id="ap"></label><label>Why you’re a good fit<textarea rows="3" id="ac"></textarea></label><label>Attach your CV (PDF or Word, up to 2 MB)<input type="file" id="acv" accept=".pdf,.doc,.docx"></label><p style="font-size:13px;color:var(--muted);margin:0 0 12px">Demo: the file itself isn’t stored, only its name.</p><div class="err" id="cverr" hidden style="margin:0 0 12px"></div><button class="btn main" type="submit">Send application</button></form>
+<div class="ok" id="aok" hidden>Application sent. The company will contact you if you’re shortlisted.</div>
+<button class="btn ghost" id="jmsg" type="button" style="width:100%;margin-top:10px">Message the company</button>
+<button class="back" id="jrep" type="button" style="margin-top:8px">Report this job</button></aside>
+</div></main>
+
+<main id="postjob" hidden>
+<button class="back" type="button" onclick="location.hash='jobs'">← Back to jobs</button>
+<div class="panel" style="max-width:560px"><h2>Post a job</h2>
+<form id="pjf">
+<label>Company name<input required id="pjco"></label>
+<label>Job title<input required id="pjt"></label>
+<label>Field<select id="pjc"><option>Operations</option><option>Banking</option><option>Hospitality</option><option>Transport</option><option>Technology</option><option>Agriculture</option><option>Health</option><option>Construction</option><option>Sales</option><option>Other</option></select></label>
+<label>Job type<select id="pjty"><option>Full-time</option><option>Part-time</option><option>Contract</option></select></label>
+<label>Location<input id="pjl" placeholder="City or site"></label>
+<label>Pay<input id="pjp" placeholder="For example $400 to $600/mo"></label>
+<label>Description and requirements<textarea required rows="4" id="pjd"></textarea></label>
+<button class="btn main" type="submit">Publish job</button>
+</form></div>
+</main>
+
+<main id="workers" hidden>
+<h1 style="font-size:clamp(30px,6vw,48px);margin:12px 0 8px">Find workers</h1>
+<div class="chips" style="margin:0 0 16px"><button class="chip" aria-pressed="false" type="button" onclick="location.hash='jobs'">Find a job</button><button class="chip" aria-pressed="true" type="button">Find workers</button><button class="chip" aria-pressed="false" type="button" onclick="location.hash='applications'">Applications</button><a class="btn main" href="#postjob" style="padding:8px 16px">Post a job</a></div>
+<div class="search" style="grid-template-columns:1fr"><label><small>Search by skill, name or area</small><input id="wq" placeholder="Electrician, driver, accountant…" autocomplete="off"></label></div>
+<div class="panel" style="margin-top:16px"><h2>Match me with workers</h2>
+<p style="color:var(--muted);margin:0 0 12px">Tell us what your company needs and we’ll rank the best-fitting workers. Pick one of your jobs to fill the form for you.</p>
+<form id="mf" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0 10px">
+<label>Match to a job<select id="mj"><option value="">Choose a job (optional)</option></select></label>
+<label>Role or skill needed<input id="ms" placeholder="Electrician, driver…"></label>
+<label>Area<input id="ml" placeholder="City or site"></label>
+<label>Minimum years<input id="mx" type="number" min="0" max="50" placeholder="0"></label>
+<label>Needed<select id="mv"><option value="">Any time</option><option>Available now</option><option>Within 2 weeks</option></select></label>
+<button class="btn main" type="submit" style="align-self:end;margin-bottom:12px">Find matches</button>
+</form><div id="mres" style="margin-top:8px" hidden></div></div>
+<details style="margin-top:16px"><summary>I’m a worker: create my profile</summary>
+<form id="wf" class="panel" style="margin:12px 0 0;border:0;padding:12px 0 0">
+<label>Your name<input required id="wn"></label>
+<label>Your skill or trade<input required id="ws" placeholder="Welder, nurse, cook…"></label>
+<label>Years of experience<input required type="number" min="0" max="50" id="we"></label>
+<label>Area<input id="wl" placeholder="City or neighbourhood"></label>
+<label>Availability<select id="wa"><option>Available now</option><option>Within 2 weeks</option><option>Open to offers</option></select></label>
+<label>About your work<textarea rows="3" id="wd"></textarea></label>
+<button class="btn main" type="submit">Add my profile</button>
+</form></details>
+<div class="grid" id="wlist" style="margin-top:18px"></div>
+<p id="wempty" hidden style="color:var(--muted)">No workers match yet.</p>
+</main>
+
+<main id="notifications" hidden>
+<h1 style="font-size:clamp(30px,6vw,48px);margin:12px 0 8px">Alerts</h1>
+<div id="notout" hidden class="panel" style="max-width:480px"><h2>Sign in to see your alerts</h2><p style="color:var(--muted)">You’ll be told about new followers, likes, comments, messages and job updates.</p><a class="btn main" href="#account">Sign in or create account</a></div>
+<div id="notin" hidden>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px"><p style="color:var(--muted);margin:0;max-width:52ch">Follows, likes, comments, messages and job updates. Demo: alerts are saved in this browser.</p><button class="btn ghost" id="notclr" type="button">Clear all</button></div>
+<div id="notlist"></div>
+<p id="notempty" hidden style="color:var(--muted)">No alerts yet. When someone follows you or likes a post, it shows up here.</p>
+</div>
+</main>
+
+<main id="entity" hidden>
+<button class="back" type="button" onclick="if(history.length>1)history.back();else location.hash='home'">← Back</button>
+<div class="phead"><div class="avatar" id="enav"></div><div><h1 id="enname" style="font-size:clamp(26px,5vw,38px)"></h1><div><span class="badge" id="enbadge"></span> <span id="ensub" style="color:var(--muted);font-size:14px"></span></div></div></div>
+<div class="stats" id="enstats" style="max-width:none;margin-top:8px"></div>
+<div style="display:flex;gap:8px;margin:14px 0;flex-wrap:wrap"><button class="btn main" id="enfol" type="button">Follow</button><button class="btn ghost" id="enmsg" type="button">Message</button></div>
+<div class="panel"><h2>About</h2><p id="enabout" style="margin:0"></p></div>
+<div id="enlists"></div>
+<h2 style="font-size:24px;margin:24px 0 12px">Posts</h2>
+<div id="enposts"></div>
+</main>
+
+<main id="posts" hidden>
+<h1 style="font-size:clamp(30px,6vw,48px);margin:12px 0 8px">Showcase</h1>
+<p style="color:var(--muted);max-width:56ch;margin:0 0 16px">See work from businesses and clients, and share your own photos and videos.</p>
+<div class="chips" id="pfilt" style="margin:0 0 16px"><button class="chip" data-f="all" aria-pressed="true" type="button">All</button><button class="chip" data-f="provider" aria-pressed="false" type="button">Businesses</button><button class="chip" data-f="customer" aria-pressed="false" type="button">Clients</button></div>
+<div class="panel post">
+<div id="poout" hidden><h2>Share your work</h2><p style="color:var(--muted)">Sign in to post photos and videos.</p><a class="btn main" href="#account">Sign in or create account</a></div>
+<form id="pof"><h2>Share your work</h2>
+<label>What would you like to share?<textarea id="poc" rows="3" maxlength="500"></textarea></label>
+<label>Photos or videos (up to 4)<input type="file" id="pom" multiple accept="image/*,video/*"></label>
+<div class="err" id="poe" hidden style="margin:0 0 12px"></div>
+<button class="btn main" id="pob" type="submit">Post</button>
+<p style="font-size:13px;color:var(--muted);margin:10px 0 0">Videos must be under 25 MB. Demo: media is saved in this browser only.</p></form></div>
+<div id="pfeed"></div>
+</main>
+
+<main id="profile" hidden>
+<button class="back" type="button" onclick="location.hash='home'">← Home</button>
+<div id="pout" hidden class="panel" style="max-width:480px"><h2>Sign in to see your profile</h2><p style="color:var(--muted)">Your details, saved professionals, listings and jobs all live here.</p><a class="btn main" href="#account">Sign in or create account</a></div>
+<div id="pin" hidden>
+<div class="phead"><div class="avatar" id="pfav" style="background:var(--ink);color:var(--bg)"></div><div><h1 id="pfname" style="font-size:clamp(26px,5vw,38px)"></h1><div><span class="badge" id="pfrole"></span> <span id="pfmeta" style="color:var(--muted);font-size:14px"></span></div><div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost" id="pfchg" type="button" style="padding:6px 14px">Add photo</button><button class="btn ghost" id="pfrm" type="button" style="padding:6px 14px">Remove photo</button></div></div></div>
+<div class="stats" id="pfstats" style="max-width:none;margin-top:8px"></div>
+<div class="pgrid" style="margin-top:20px"><div>
+<div class="panel" id="pa1"><h2>Your listings</h2><div id="pa1l"></div></div>
+<div class="panel" id="pa2"><h2>Your jobs</h2><div id="pa2l"></div></div>
+<div class="panel"><h2>Saved professionals</h2><div id="pa3l"></div></div>
+<div id="pa4l"></div>
+</div>
+<aside class="panel"><h2>Your details</h2>
+<form id="pff">
+<label>Profile photo or logo<input type="file" id="pfph" accept="image/*"></label>
+<label>Email<input id="pfem" disabled></label>
+<label>Full name<input required id="pfn"></label>
+<label>Phone number<input required type="tel" id="pft"></label>
+<label>Company or business name<input id="pfco"></label>
+<label>About you<textarea rows="3" id="pfab"></textarea></label>
+<button class="btn main" type="submit">Save changes</button>
+</form>
+<div class="ok" id="pfok" hidden>Details saved.</div>
+<div class="err" id="pferr" hidden></div>
+<button class="btn ghost" id="pfout" type="button" style="margin-top:12px">Sign out</button>
+</aside></div>
+</div>
+</main>
+
+<main id="messages" hidden>
+<h1 style="font-size:clamp(30px,6vw,48px);margin:12px 0 8px">Messages</h1>
+<p style="color:var(--muted);max-width:56ch;margin:0 0 18px">Chat with professionals, companies and workers. Demo: conversations are saved in this browser, and replies are automatic examples.</p>
+<div id="clist"></div>
+<p id="cempty" hidden style="color:var(--muted)">No conversations yet. Open a professional, job or worker and tap Message.</p>
+</main>
+
+<main id="chat" hidden>
+<button class="back" type="button" onclick="location.hash='messages'">← All messages</button>
+<div style="margin:8px 0 12px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap"><div><h1 id="cname" style="font-size:28px"></h1><div id="csub" style="color:var(--muted)"></div></div><div style="display:flex;gap:8px"><button class="btn ghost" id="crep" type="button" style="padding:8px 14px">Report</button><button class="btn ghost" id="cblk" type="button" style="padding:8px 14px">Block</button></div></div>
+<div class="ok" style="margin:0 0 12px;font-weight:400;font-size:14px">Stay safe: never send money or share passwords. Phone numbers and emails are hidden in chats. Use Report if something feels wrong.</div>
+<div class="cbox" id="cmsgs" aria-live="polite"></div>
+<div class="ok" id="clock" hidden style="margin:0 0 12px;font-weight:400">Sending messages is part of the paid plans. You can still read replies. Tapping Send takes you to the plans. <a href="#pricing">See plans</a></div>
+<p id="cblocked" hidden style="color:var(--muted);margin:0 0 12px">You blocked this contact. They can’t message you and you can’t message them. Tap Unblock to chat again.</p>
+<form class="cform" id="cf"><input id="ct" placeholder="Write a message…" autocomplete="off" aria-label="Message"><button class="btn main" type="submit">Send</button></form>
+</main>
+
+<main id="applications" hidden>
+<button class="back" type="button" onclick="location.hash='jobs'">← Back to jobs</button>
+<h1 style="font-size:clamp(30px,6vw,48px);margin:8px 0">Applications</h1>
+<p style="color:var(--muted);max-width:56ch;margin:0 0 20px">Company view. Candidates’ phone numbers stay hidden until you shortlist them. In this demo you see every application saved in this browser.</p>
+<div id="applist"></div>
+<p id="apempty" hidden style="color:var(--muted)">No applications yet. Open a job and apply to see one appear here.</p>
+</main>
+
+<main id="pricing" hidden>
+<button class="back" type="button" onclick="location.hash='home'">← Back</button>
+<h1 style="font-size:clamp(30px,6vw,48px);margin:8px 0">Get found by more customers</h1>
+<div class="ok" id="pwhy" hidden style="margin-bottom:16px">Sending messages, applications and requests is part of the paid plans. Choose a plan below to unlock it, and you’ll be taken straight back.</div>
+<p style="color:var(--muted);max-width:56ch;margin:0 0 24px">Verification is earned. You pay for a review of your ID, registration and licence, plus tools to win customers. Approval is never guaranteed.</p>
+<div class="pricing">
+<div class="panel plan"><h2>Free</h2><div class="price">$0</div><ul><li>Basic listing with a Contact confirmed badge</li><li>Local discovery</li><li>Read messages and enquiries (sending needs a paid plan)</li><li>3 services and 3 photos</li><li>3 marketplace leads a month</li></ul><button class="btn ghost pick" data-p="Free" type="button">Start free</button></div>
+<div class="panel plan hot"><span class="tag" style="align-self:flex-start">Best value</span><h2>Verified</h2><div class="price">$10<small>/month or $50/year</small></div><ul><li>Send messages, applications and quote requests</li><li>Verified badge and certificate</li><li>Public trust score</li><li>Country-wide discovery</li><li>Ranked above basic listings</li><li>10 photos, 2 videos, 10 services</li><li>Unlimited marketplace leads</li><li>30 days of analytics</li></ul><button class="btn main pick" data-p="Verified" type="button">Get verified</button></div>
+<div class="panel plan"><h2>Premium Verified</h2><div class="price">$25<small>/month or $100/year</small></div><ul><li>Everything in Verified</li><li>Worldwide discovery</li><li>Priority leads (first look)</li><li>Homepage spotlight and sponsored slots (limited)</li><li>30 photos, 10 videos, portfolio, branding</li><li>12 months of analytics</li><li>Automated follow-ups and AI tools</li></ul><button class="btn ghost pick" data-p="Premium Verified" type="button">Choose Premium</button></div>
+<div class="panel plan"><h2>Enterprise</h2><div class="price">$149+<small>/month</small></div><ul><li>Everything in Premium Verified</li><li>Up to 10 locations</li><li>10+ team seats</li><li>Bulk, employer-branded job posts</li><li>API and data export</li><li>24-hour priority review</li><li>Dedicated account manager</li></ul><button class="btn ghost pick" data-p="Enterprise" type="button">Talk to sales</button></div>
+</div>
+<div class="ok" id="pnote" hidden></div>
+<h2 style="font-size:24px;margin:24px 0 12px">Compare plans</h2>
+<div style="overflow-x:auto"><table class="cmp"><tr><th></th><th>Free</th><th>Verified</th><th>Premium Verified</th><th>Enterprise</th></tr>
+<tr><td>Discovery</td><td>Local</td><td>Country-wide</td><td>Worldwide</td><td>Multi-region</td></tr>
+<tr><td>Send messages and applications</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Badge</td><td>Contact confirmed</td><td>Verified</td><td>Premium Verified</td><td>Verified, multi-location</td></tr>
+<tr><td>Search ranking</td><td>Standard</td><td>Above free</td><td>Highest</td><td>Highest</td></tr>
+<tr><td>Photos / videos</td><td>3 / 0</td><td>10 / 2</td><td>30 / 10</td><td>100 / 40</td></tr>
+<tr><td>Marketplace leads</td><td>3 a month</td><td>Unlimited</td><td>Unlimited, priority</td><td>Unlimited, priority</td></tr>
+<tr><td>Analytics</td><td>View counts</td><td>30 days</td><td>12 months, full funnel</td><td>Unlimited, exports</td></tr>
+<tr><td>Promotional offers</td><td>No</td><td>2 a month</td><td>8 a month</td><td>Custom</td></tr>
+<tr><td>AI credits a month</td><td>5</td><td>30</td><td>300</td><td>2,000</td></tr>
+<tr><td>Review turnaround</td><td>n/a</td><td>3 business days</td><td>2 business days</td><td>24 hours</td></tr></table></div>
+<p style="color:var(--muted);font-size:14px;margin-top:12px">Premium spots are limited per category and city. Demo: spot limits and checks aren’t enforced yet. Annual plans save about 58% on Verified and 67% on Premium Verified.</p>
+</main>
+
+<main id="property" hidden>
+<button class="back" type="button" id="xback">← Back to agent</button>
+<div class="pgrid"><div>
+<div class="ph" id="xph" style="height:260px;font-size:80px"></div>
+<span class="tag" id="xkind"></span>
+<h1 id="xtitle" style="margin:8px 0;font-size:clamp(26px,5vw,38px)"></h1>
+<div id="xprice" style="font:800 28px 'Bricolage Grotesque',sans-serif"></div>
+<div class="facts" id="xfacts"></div>
+<div class="panel" style="margin-top:18px"><h2>About this property</h2><p id="xdesc" style="margin:0"></p><p style="margin:12px 0 0">Listed by <a id="xagent" href="#home"></a></p></div>
+</div>
+<aside class="panel quote"><h2>Schedule a viewing</h2>
+<form id="vf"><label>Your name<input required id="vn"></label><label>Phone number<input required type="tel" id="vp"></label><label>Preferred date<input type="date" id="vd"></label><button class="btn main" type="submit">Request viewing</button></form>
+<div class="ok" id="vok" hidden>Viewing request sent. The agent will confirm by phone.</div></aside>
+</div></main>
+
+<main id="account" hidden>
+<button class="back" type="button" onclick="location.hash='home'">← Back</button>
+<div class="panel" style="max-width:440px">
+<div class="chips" id="tabs" style="margin:0 0 16px"><button class="chip" id="tin" aria-pressed="true" type="button">Sign in</button><button class="chip" id="tup" aria-pressed="false" type="button">Create account</button></div>
+<form id="sif"><h2>Welcome back</h2>
+<label>Email or phone number<input required id="se" autocomplete="username"></label>
+<label>Password<input required type="password" id="sp" autocomplete="current-password"></label>
+<button class="btn main" type="submit">Sign in</button></form>
+<form id="suf" hidden><h2>Create your account</h2>
+<label>Full name<input required id="un" autocomplete="name"></label>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px"><label>Email<input required type="email" id="ue" autocomplete="email"></label>
+<label>Phone number<input required type="tel" id="uph" autocomplete="tel" placeholder="+233 24 123 4567"></label></div>
+<label>Password (8 characters or more)<input required type="password" minlength="8" id="up" autocomplete="new-password"></label>
+<label>I want to<select id="ur"><option value="customer">Find a professional</option><option value="provider">List my business</option></select></label>
+<button class="btn main" type="submit">Create account</button></form>
+<form id="otpf" hidden><h2>Verify your phone</h2>
+<p style="color:var(--muted);margin:0 0 12px">Enter the 6-digit code sent to <b id="otpto"></b>.</p>
+<div class="ok" id="demo" style="margin:0 0 12px"></div>
+<label>Verification code<input required id="otpc" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}"></label>
+<button class="btn main" type="submit">Verify and create account</button>
+<p style="margin:12px 0 0;font-size:14px"><button class="back" type="button" id="resend">Resend code</button> · <button class="back" type="button" id="otpback">Change number</button></p></form>
+<div class="err" id="aerr" hidden></div>
+</div>
+</main>
+
+<main id="join" hidden>
+<button class="back" type="button" onclick="location.hash='home'">← Back</button>
+<div class="panel" style="max-width:520px">
+<h2>List your business</h2>
+<form id="jf">
+<label>Business name<input required id="jn"></label>
+<label>Service<select id="jt"><option>Plumber</option><option>Electrician</option><option>Cleaner</option><option>Tutor</option><option>Mechanic</option><option>Photographer</option><option>Real Estate</option><option>Law Firm</option><option>Lawyer</option><option>Dentist</option></select></label>
+<label>Area you cover<input id="jl" placeholder="City or neighbourhood"></label>
+<label>Starting price ($)<input id="jp" type="number" min="1" placeholder="25"></label>
+<label>About your work<textarea rows="3" id="ja" placeholder="What you do and how long you have done it"></textarea></label>
+<button class="btn main" type="submit">Create listing</button>
+</form>
+<div id="jok" hidden><div class="ok">Your listing is live. Verification (ID and work history check) comes next.</div><p><a class="btn main" id="jlink" href="#home">View your profile</a></p></div>
+</div>
+</main>
+
+<div class="themebox" role="group" aria-label="Colour theme"><button type="button" data-th="auto" aria-pressed="true">◐ Default</button><button type="button" data-th="light" aria-pressed="false">☀ Light</button><button type="button" data-th="dark" aria-pressed="false">☾ Dark</button></div>
+<dialog id="lb" aria-label="Profile photo" style="border:0;padding:0;background:transparent;max-width:92vw;max-height:92vh;overflow:visible"><div style="position:relative"><img id="lbimg" alt="Profile photo, enlarged" style="display:block;max-width:92vw;max-height:88vh;object-fit:contain;border-radius:12px;background:var(--surface)"><button id="lbx" type="button" aria-label="Close photo" class="btn main" style="position:absolute;top:-14px;right:-14px;border-radius:50%;width:36px;height:36px;padding:0">✕</button></div></dialog>
+<dialog id="rd" class="panel" style="margin:auto;max-width:420px;width:calc(100% - 32px);color:var(--ink)">
+<h2 style="font-size:22px;margin-bottom:6px">Report a problem</h2>
+<p id="rtarget" style="color:var(--muted);margin:0 0 12px"></p>
+<form id="rpf">
+<label>What happened?<select id="rr2"><option>Scam or fake offer</option><option>Asked me for money</option><option>Abusive or threatening</option><option>Fake profile or review</option><option>Something else</option></select></label>
+<label>Details (optional)<textarea id="rn2" rows="3"></textarea></label>
+<div style="display:flex;gap:8px"><button class="btn main" type="submit">Send report</button><button class="btn ghost" type="button" id="rcancel">Cancel</button></div>
+</form>
+<div class="ok" id="rdone" hidden>Thank you. Your report was sent to the Vouch team. In this demo it is saved in your browser only.</div>
+<button class="btn ghost" id="rclose" type="button" hidden style="margin-top:10px">Close</button>
+</dialog>
+<footer><div class="fcols"><div><b>Services</b><a href="#home">Find a professional</a><a href="#join">List your business</a><a href="#pricing">Pricing</a></div><div><b>Jobs</b><a href="#jobs">Browse jobs</a><a href="#workers">Find workers</a><a href="#postjob">Post a job</a></div><div><b>Community</b><a href="#posts">Showcase</a><a href="#messages">Messages</a><a href="#account">Sign in</a></div></div>Vouch is a demo site. Sample professionals are placeholder data; accounts, listings and reviews are saved in this browser only and are not secure.</footer>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
